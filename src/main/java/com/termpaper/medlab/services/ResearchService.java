@@ -23,4 +23,6 @@ public interface ResearchService{
 
     List<Time> getResearchHours(String date);
 
+    Research getResearchResults(String code);
+
 }

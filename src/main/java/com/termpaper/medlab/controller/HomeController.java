@@ -21,6 +21,10 @@ public class HomeController {
     public String mainPage(Model model) {
 	return "info";
     }
+    @GetMapping("code" )
+    public String codePage(Model model) {
+	return "codePage";
+    }
     
     @RequestMapping("404")
     public String error404(){

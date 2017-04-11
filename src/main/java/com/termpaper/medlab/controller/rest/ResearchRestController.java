@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.termpaper.medlab.model.Research;
@@ -40,6 +43,13 @@ public class ResearchRestController{
 	    disabledDates[counter++] = d.toString();
 	}
 	return disabledDates;
+    }
+    
+    @RequestMapping(value = "api/code/{code}", method = RequestMethod.GET, produces={"application/json"})
+    public @ResponseBody Research getByCode(@PathVariable("code") String code) {
+	Research r = researchService.getResearchResults(code);
+	System.out.println(r.getCode());
+	return r;
     }
     
     @SuppressWarnings("deprecation")

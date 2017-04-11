@@ -29,6 +29,7 @@ public class ResearchDaoImpl implements ResearchDao{
     private static final String SQL_UPDATE_READINESS = "UPDATE research SET readiness=? WHERE id=?";
     private static final String SQL_GET_DISABLED_DATES = "SELECT cast(date as date) AS ddate, COUNT(CASE WHEN cast(date as time) BETWEEN '00:00:00' AND '23:59:59' THEN 1 ELSE NULL END) AS t FROM research GROUP by ddate HAVING t>=10";
     private static final String SQL_GET_DISABLED_HRS = "SELECT cast(date as time) AS dtime FROM `research` WHERE cast(date as date)=?";
+    private static final String SQL_GET_BY_CODE = "SELECT id, date, readiness, cost, code FROM research WHERE code=?";
     
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -79,7 +80,10 @@ private static class ResearchRowMapper implements RowMapper<Research> {
 	    Research res = new Research();	    
 	    
 	    res.setId(rs.getInt("id"));
-	    
+	    res.setCost(rs.getDouble("cost"));
+	    res.setDate(rs.getTimestamp("date"));
+	    res.setReadiness(rs.getTimestamp("readiness"));
+	    res.setCode(rs.getString("code"));
 	    return res;
 	}
     }
@@ -112,6 +116,12 @@ public List<Date> getResearchDisabledDates(){
 @Override
 public List<Time> getResearchDisabledHrs(String date){
     return jdbcTemplate.query(SQL_GET_DISABLED_HRS, new HrsRowMapper(), date);
+}
+
+@Override
+public Research getResultsByCode(String code){
+    List<Research> list = jdbcTemplate.query(SQL_GET_BY_CODE, new ResearchRowMapper(), code);
+    return list.isEmpty() ? null : list.get(0);
 }
 
 }

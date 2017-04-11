@@ -20,4 +20,6 @@ public interface ResearchDao{
 
     List<Time> getResearchDisabledHrs(String date);
 
+    Research getResultsByCode(String code);
+
 }

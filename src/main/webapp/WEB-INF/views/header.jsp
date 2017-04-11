@@ -81,6 +81,9 @@
 					<security:authorize access="hasRole('PATIENT')">
 					<li><a href="<c:url value="/patient/new-research"/>">Get Research</a></li>
 					</security:authorize>
+					<security:authorize access="permitAll">
+					<li><a href="<c:url value="/code"/>">Get by Code</a></li>
+					</security:authorize>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<security:authorize access="isAnonymous()">

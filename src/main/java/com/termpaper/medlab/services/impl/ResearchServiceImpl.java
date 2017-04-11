@@ -70,4 +70,9 @@ public class ResearchServiceImpl implements ResearchService{
 	return researchDao.getResearchDisabledHrs(date);
     }
 
+    @Override
+    public Research getResearchResults(String code){
+	return researchDao.getResultsByCode(code);
+    }
+
 }

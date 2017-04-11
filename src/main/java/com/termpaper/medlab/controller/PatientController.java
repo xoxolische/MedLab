@@ -25,7 +25,6 @@ import com.termpaper.medlab.services.UserService;
 @SessionAttributes("id")
 @RequestMapping("patient")
 public class PatientController{
-    //test
     
     @Autowired
     UserService userService;
